@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/rifle.dae-8b6b20934e4acd235c54a6e5b27ffe18.scn"
+path="res://.import/smg.dae-13822fc891dd16546efcab3eee810b52.scn"
 
 [deps]
 
-source_file="res://models/rifle/rifle.dae"
-dest_files=[ "res://.import/rifle.dae-8b6b20934e4acd235c54a6e5b27ffe18.scn" ]
+source_file="res://models/smg/smg.dae"
+dest_files=[ "res://.import/smg.dae-13822fc891dd16546efcab3eee810b52.scn" ]
 
 [params]
 
