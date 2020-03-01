@@ -11,6 +11,7 @@ onready var raycast = $"../Camera/RayCast"
 var current_ammo = 0;
 var can_fire = true;
 var reloading = false;
+var full_auto = false;
 
 func _ready():
 	current_ammo = clip_size;
@@ -22,11 +23,18 @@ func _process(delta):
 	else:
 		ammo_label.set_text("%d / %d" % [current_ammo, clip_size]);
 	
-	if Input.is_action_just_pressed("primary_fire") and can_fire:
-		if current_ammo > 0 and not reloading:
-			fire();
-		elif not reloading:
-			reload();
+	if full_auto == false:
+		if Input.is_action_just_pressed("primary_fire") and can_fire:
+			if current_ammo > 0 and not reloading:
+				fire();
+			elif not reloading:
+				reload();
+	else:
+		if Input.is_action_pressed("primary_fire") and can_fire:
+			if current_ammo > 0 and not reloading:
+				fire();
+			elif not reloading:
+				reload();
 	
 	if Input.is_action_just_pressed("reload") and not reloading:
 		reload();
@@ -54,6 +62,9 @@ func reload():
 	current_ammo = clip_size;
 	reloading = false;
 
+func set_can_fire(x):
+	can_fire = x;
+
 func set_fire_rate(x):
 	fire_rate = x;
 
@@ -62,3 +73,9 @@ func set_clip_size(x):
 
 func set_current_ammo(x):
 	current_ammo = x;
+
+func set_reload_rate(x):
+	reload_rate = x;
+
+func set_full_auto(x):
+	full_auto = x;

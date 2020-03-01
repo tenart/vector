@@ -60,6 +60,17 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="SolidBox"]
 shape = SubResource( 4 )
 
+[node name="SolidBox2" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0397089, 3.64986, -3.418 )
+
+[node name="MeshInstance" type="MeshInstance" parent="SolidBox2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.00374, 0 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="SolidBox2"]
+shape = SubResource( 4 )
+
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.398594, 0.917127, 0, -0.917127, 0.398594, 0, 10.742, 6.45287 )
 environment = ExtResource( 2 )
