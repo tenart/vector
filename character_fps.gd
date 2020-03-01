@@ -12,7 +12,8 @@ onready var weapon = $HeadPivot/Weapon;
 onready var weapon_animation = $HeadPivot/Weapon/AnimationPlayer;
 
 var velocity = Vector3();
-var jump_allow = false;
+var jump_count = 0;
+var on_ground = false;
 
 
 # Mouse input
@@ -29,8 +30,6 @@ func _physics_process(delta):
 	var body_basis = get_global_transform().basis;
 	var direction = Vector3();
 	
-	jump_allow = is_on_floor();
-	
 	if Input.is_action_pressed("move_forward"):
 		direction -= body_basis.z.normalized();
 	elif Input.is_action_pressed("move_backward"):
@@ -40,9 +39,22 @@ func _physics_process(delta):
 		direction -= body_basis.x.normalized();
 	elif Input.is_action_pressed("move_right"):
 		direction += body_basis.x.normalized();
-		
-	if Input.is_action_pressed("jump") and is_on_floor():
-		direction.y += jump;
+	
+	#Reset jumping when on ground
+	if is_on_floor():
+		jump_count = 0;
+	
+	#Single jump
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		if jump_count == 0:
+			direction.y += jump;
+			jump_count = 1;
+	
+	#Double jump
+	if Input.is_action_just_pressed("jump") and not is_on_floor():
+		if jump_count == 1:
+			direction.y += jump;
+			jump_count = 2;
 	
 	# Smoothly interpolate and slide body
 	velocity = velocity.linear_interpolate(direction * speed, acceleration * delta);
