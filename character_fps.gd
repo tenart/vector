@@ -1,9 +1,9 @@
 extends KinematicBody;
 
-export var gravity = 1;
+export var gravity = 0.8;
 export var speed = 10;
 export var acceleration = 5;
-export var jump = 30;
+export var jump = 35;
 export var mouse_sensitivity = 0.4;
 
 onready var head = $HeadPivot;
