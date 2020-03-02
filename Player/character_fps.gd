@@ -14,6 +14,7 @@ onready var weapon_animation = $HeadPivot/Weapon/AnimationPlayer;
 var velocity = Vector3();
 var jump_count = 0;
 var on_ground = false;
+var flip_state = 0;
 
 
 # Mouse input
@@ -40,6 +41,9 @@ func _physics_process(delta):
 	elif Input.is_action_pressed("move_right"):
 		direction += body_basis.x.normalized();
 	
+	if Input.is_action_just_pressed("box_flip"):
+		box_flip();
+	
 	#Reset jumping when on ground
 	if is_on_floor():
 		jump_count = 0;
@@ -60,3 +64,38 @@ func _physics_process(delta):
 	velocity = velocity.linear_interpolate(direction * speed, acceleration * delta);
 	velocity.y -= gravity;
 	velocity = move_and_slide(velocity, Vector3.UP);
+
+func box_flip():
+	for cube in get_tree().get_nodes_in_group("Cubes1"):
+		if cube.is_visible():
+			cube.hide();
+		else:
+			cube.show();
+		
+		match [flip_state]:
+			[0]:
+				cube.get_node("CollisionShape").set_disabled(true);
+				cube.set_ray_pickable(false);
+			[1]:
+				cube.get_node("CollisionShape").set_disabled(false);
+				cube.set_ray_pickable(true);
+	
+	for cube in get_tree().get_nodes_in_group("Cubes2"):
+		if cube.is_visible():
+			cube.hide();
+		else:
+			cube.show();
+			
+		match [flip_state]:
+			[0]:
+				cube.get_node("CollisionShape").set_disabled(false);
+				cube.set_ray_pickable(true);
+			[1]:
+				cube.get_node("CollisionShape").set_disabled(true);
+				cube.set_ray_pickable(false);
+	
+	match [flip_state]:
+		[0]:
+			flip_state = 1;
+		[1]:
+			flip_state = 0;

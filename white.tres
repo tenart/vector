@@ -1,0 +1,12 @@
+[gd_resource type="SpatialMaterial" load_steps=2 format=2]
+
+[sub_resource type="NoiseTexture" id=1]
+
+[resource]
+albedo_color = Color( 1, 1, 1, 0.478431 )
+metallic = 0.8
+roughness = 0.05
+refraction_enabled = true
+refraction_scale = 1.0
+refraction_texture = SubResource( 1 )
+refraction_texture_channel = 2
